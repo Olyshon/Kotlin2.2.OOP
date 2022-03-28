@@ -18,6 +18,6 @@ fun main() {
         text = "This is update second post",
         likes = Post.Likes(300u, userLikes = false, canLike = true, canPublish = true),
     )
-    wallService.update(postNum3)
+    print(wallService.update(postNum3))
 
 }

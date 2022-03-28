@@ -38,6 +38,7 @@ class WallService() {
                     copyright = post.copyright,
                     donut = post.donut
                 )
+                return true
         }
         return false
     }
