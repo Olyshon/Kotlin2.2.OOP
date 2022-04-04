@@ -8,10 +8,11 @@ class WallService() {
         val instant = Instant.ofEpochMilli(uniqueId)
         val postNewId = post.copy(id = uniqueId, date = instant)
         posts += postNewId
+        //posts.count()
         return posts.last()
     }
 
-    fun update(post: Post): Boolean {
+   fun update(post: Post): Boolean {
         for ((index, curPost) in posts.withIndex()) {
             if (curPost.id == post.id)
                 posts[index] = curPost.copy(

@@ -1,3 +1,5 @@
+import java.time.Instant
+
 fun main() {
     val postNum1 = Post(
         text = "This is my first post",
@@ -8,7 +10,7 @@ fun main() {
         likes = Post.Likes(200u, userLikes = false, canLike = true, canPublish = true),
     )
 
-    val wallService = WallService()
+  //  val wallService = WallService()
 
     wallService.add(postNum1)
     val postNum2UP = wallService.add(postNum2)
@@ -19,5 +21,7 @@ fun main() {
         likes = Post.Likes(300u, userLikes = false, canLike = true, canPublish = true),
     )
     print(wallService.update(postNum3))
+
+
 
 }
