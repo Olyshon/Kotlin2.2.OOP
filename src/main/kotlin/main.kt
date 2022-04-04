@@ -1,4 +1,4 @@
-import java.time.Instant
+
 
 fun main() {
     val postNum1 = Post(
@@ -10,7 +10,7 @@ fun main() {
         likes = Post.Likes(200u, userLikes = false, canLike = true, canPublish = true),
     )
 
-  //  val wallService = WallService()
+    val wallService = WallService()
 
     wallService.add(postNum1)
     val postNum2UP = wallService.add(postNum2)
