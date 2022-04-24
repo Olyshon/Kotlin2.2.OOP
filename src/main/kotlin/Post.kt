@@ -7,11 +7,11 @@ data class Post(
     val createdBy: Int = 0,       // Идентификатор администратора, который опубликовал запись (возвращается только для сообществ при запросе с ключом доступа администратора). Возвращается в записях, опубликованных менее 24 часов назад.
     val date: Instant = Instant.ofEpochMilli(1000000),            //Время публикации записи в формате unixtime.
     val text: String = "Hello",         //текст записи
-    val replyOwnerId: Int = 0,    //Идентификатор владельца записи, в ответ на которую была оставлена текущая
-    val replyPostId: Int = 0,     //Идентификатор записи, в ответ на которую была оставлена текущая
+    val replyOwnerId: Int? = 0,    //Идентификатор владельца записи, в ответ на которую была оставлена текущая
+    val replyPostId: Int? = 0,     //Идентификатор записи, в ответ на которую была оставлена текущая
     val friendsOnly: Boolean = false, //1, если запись была создана с опцией «Только для друзей»
     val postType: String = "post",     //Тип записи, может принимать следующие значения: post, copy, reply, postpone, suggest.
-    val signerId: Int = 0,        //Идентификатор автора, если запись была опубликована от имени сообщества и подписана пользователем;
+    val signerId: Int? = 0,        //Идентификатор автора, если запись была опубликована от имени сообщества и подписана пользователем;
     val canPin: Boolean = true,      //Информация о том, может ли текущий пользователь закрепить запись (1 — может, 0 — не может).
     val canDelete: Boolean = true,   //Информация о том, может ли текущий пользователь удалить запись (1 — может, 0 — не может).
     val canEdit: Boolean = true,     //Информация о том, может ли текущий пользователь редактировать запись (1 — может, 0 — не может).
@@ -23,9 +23,13 @@ data class Post(
     val comments: Comments = Comments(0u, can_post = true, groups_can_post = true, can_close = true, can_open = true),
     val views: Views = Views(count = 0u),
     val reposts: Reposts = Reposts(0u, userReposted = false),
-    val copyright: Copyright = Copyright(1, "", "", ""),
-    val donut: Donut = Donut(isDonut = false, 0, "", false, "", "", 1)
-
+    val copyright: Copyright? = Copyright(1, "", "", ""),
+    val donut: Donut? = Donut(isDonut = false, 0, "", false, "", "", 1),
+    val postSource: PostSource? = PostSource(type = "", platform = "", data = "", url = ""),
+    val geo: Geo? = Geo(type = "", coordinates = "", place = ""),
+    val copyHistory: Array<Post>? = emptyArray<Post>(),
+    val attachment: Attachment
+    // val attachment: Array<Attachment>? = null
 ) {
     class Likes(
         val count: UInt,       //число пользователей, которым понравилась запись;
@@ -68,4 +72,36 @@ data class Post(
         val duration: Int                // время, в течение которого запись будет доступна только платным подписчикам VK Donut.
     )
 
+    class PostSource(
+        val type: String,
+        val platform: String,
+        val data: String,
+        val url: String
+    )
+
+    class Geo(
+        val type: String,
+        val coordinates: String,
+        val place: String
+    )
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Post
+
+        if (id != other.id) return false
+        if (ownerId != other.ownerId) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + ownerId
+        return result
+    }
+
 }
+

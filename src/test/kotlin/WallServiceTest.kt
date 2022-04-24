@@ -8,9 +8,11 @@ class WallServiceTest {
     fun addIDNotNull() {
         //Arrange
         val wallService = WallService()
+        val audioAttachment = AudioAttachment("video")
         val postTest1 = Post(
             text = "This is my first post",
-            likes = Post.Likes(10u, userLikes = false, canLike = true, canPublish = true)
+            likes = Post.Likes(10u, userLikes = false, canLike = true, canPublish = true),
+            attachment = audioAttachment
         )
         //Act
         val resultPost = wallService.add(
@@ -24,8 +26,10 @@ class WallServiceTest {
     fun updateIdExists() {
         //Arrange
         val wallService = WallService()
+        val videoAttachment = VideoAttachment("video")
         val postTest = Post(
-            text = "My post for test"
+            text = "My post for test",
+            attachment = videoAttachment
         )
         val postAfterAddId = wallService.add(
             post = postTest
@@ -42,8 +46,10 @@ class WallServiceTest {
     fun updateIdNotExists() {
         //Arrange
         val wallService = WallService()
+        val noteAttachment = NoteAttachment("video")
         val postTest = Post(
-            id = 1234567
+            id = 1234567,
+            attachment = noteAttachment
         )
         //Act
         val result = wallService.update(
