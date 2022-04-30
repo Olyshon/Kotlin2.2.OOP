@@ -1,7 +1,18 @@
 import java.time.Instant
 
 class WallService() {
-    var posts = emptyArray<Post>()
+    private var posts = emptyArray<Post>()
+    private var comments = emptyArray<Comment>()
+
+    fun createComment(comment: Comment) : Comment {
+        for ((index, curPost) in posts.withIndex()) {
+            if (curPost.id == comment.postId) {
+                comments += comment
+                return comments.last()
+            }
+        }
+        throw PostNotFoundException("no post with id ${comment.id}")
+    }
 
     fun add(post: Post): Post {
         val uniqueId: Long = System.currentTimeMillis()
@@ -46,5 +57,6 @@ class WallService() {
         }
         return false
     }
+
 
 }
