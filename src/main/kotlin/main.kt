@@ -14,10 +14,8 @@ fun main() {
     )
 
     val wallService = WallService()
-
     wallService.add(postNum1)
     val postNum2UP = wallService.add(postNum2)
-
     val postNum3 = Post(
         id = postNum2UP.id,
         text = "This is update second post",
@@ -25,6 +23,11 @@ fun main() {
         attachment = docAttachment
     )
     print(wallService.update(postNum3))
-
+    val comment = Comment(
+        postId = 1,
+        attachment = audioAttachment,
+        text = "My test comment"
+    )
+    wallService.createComment(comment)
 
 }
