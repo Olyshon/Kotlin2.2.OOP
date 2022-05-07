@@ -5,7 +5,7 @@ class WallService() {
     private var comments = emptyArray<Comment>()
 
     fun createComment(comment: Comment) : Comment {
-        for ((index, curPost) in posts.withIndex()) {
+        for (curPost in posts) {
             if (curPost.id == comment.postId) {
                 comments += comment
                 return comments.last()
