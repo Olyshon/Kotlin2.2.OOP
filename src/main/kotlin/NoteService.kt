@@ -1,26 +1,35 @@
-class NoteService: CrudService <Note> () {
+class NoteService : CrudService<Note>() {
 
-    fun addComment(noteId: Int, comment: Comment) {
+    fun createComment(noteId: Int, comment: Comment) {
         getById(noteId)?.comments?.add(comment)
     }
 
-    fun deleteComment(noteId: Int, comment: Comment) {
-
-        comment.deleted = true
+    fun getComments(noteId: Int): List<Comment>? {
+        return getById(noteId)?.comments?.filter { !it.deleted }
     }
 
-  /*  fun editComment(noteId: Int, comment: Comment, updateText: String): Boolean {
+    fun deleteComment(noteId: Int, comment: Comment) {
+        if (comment.deleted) throw CommentDeletedException("This comment has already been deleted")
+        else comment.deleted = true
+    }
 
-      if (!comment.deleted) {
+    fun restoreComment(noteId: Int, comment: Comment) {
+        if (!comment.deleted) throw CommentDeletedException("This comment has already been restored")
+        else comment.deleted = false
+    }
 
-          for ((index, curElem) in getById(noteId)?.comments!!.withIndex()) {
-              if (curElem.id == comment.id)
-                // elements[index] = elem
-              //    getById(noteId)!!.comments[index] = comment.text updateText
-              return true
-          }
-          return false
-      }
-        throw PostNotFoundException("Нельзя редактировать, коммент №${comment.id} удален' ")
-    }*/
+    fun editComment(noteId: Int, comment: Comment, newComment: Comment): Boolean {
+        if (!comment.deleted) {
+            for ((index, curElem) in elements[noteId - 1].comments.withIndex()) {
+                if (curElem.id == comment.id) {
+                    elements[noteId - 1].comments[index] = newComment
+                    return true
+                }
+            }
+            return false
+        }
+        throw CommentDeletedException("This comment has already been deleted")
+    }
 }
+
+

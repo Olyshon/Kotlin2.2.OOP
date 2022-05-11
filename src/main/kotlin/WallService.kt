@@ -4,7 +4,7 @@ class WallService() {
     private var posts = emptyArray<Post>()
     private var comments = emptyArray<Comment>()
 
-    fun createComment(comment: Comment) : Comment {
+    fun createComment(comment: Comment): Comment {
         for (curPost in posts) {
             if (curPost.id == comment.postId) {
                 comments += comment

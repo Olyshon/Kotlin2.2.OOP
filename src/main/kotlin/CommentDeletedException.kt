@@ -1,0 +1,1 @@
+class CommentDeletedException(message: String) : RuntimeException(message)
