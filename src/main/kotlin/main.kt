@@ -23,30 +23,35 @@ fun main() {
         attachment = docAttachment
     )
     wallService.update(postNum3)
+    // wallService.createComment(comment)
 
-  /*  val comment = Comment(
-        postId = 1,
-        attachment = audioAttachment,
-        text = "My test comment"
-    )*/
-   // wallService.createComment(comment)
-    val testComment = Comment (false, "test note's comment", 1)
 
-    val service = NoteService()
-    service.add(Note(1, "first note"))
-    service.add(Note(1, "second note"))
-    println("Массив заметок:  " + service.elements)
-    println("Нашли по id 2 элемент:  " + service.getById(2))
-    service.update(Note(1, "update first note"))
-    println("Массив заметок после обновления  " + service.elements)
+    val noteService = NoteService()
+    val testComment = Comment(false, "test note's comment", 1)
+    val testComment2 = Comment(false, "second comment", 2)
 
-    service.addComment(1, testComment)
-    println("Добавили коммент к первой заметке  " + service.elements)
+    noteService.add(Note(1, "first note"))
+    noteService.add(Note(1, "second note"))
+    println("Список заметок:  " + noteService.get())
 
-    service.deleteComment(1, testComment)
-    println("Удалили коммент к первой заметке  " + service.elements)
+    noteService.delete(Note(2, "second note"))
+    println("Список заметок после удаления второй заметки:  " + noteService.get())
 
-   // service.editComment(1, testComment, "update text in test comment")
-    println("Изменили коммент к первой заметке  " + service.elements)
-   // service.deleteComment(1, testComment, "update text in test comment")
+    println("Нашли по id 1 элемент:  " + noteService.getById(1))
+
+    noteService.edit(Note(1, "update first note"))
+    println("Список заметок после обновления первой заметки " + noteService.get())
+
+    noteService.createComment(1, testComment)
+    println("Добавили первый коммент к первой заметке  " + noteService.elements)
+
+    noteService.createComment(1, testComment2)
+    println("Добавили второй коммент к первой заметке  " + noteService.elements)
+
+    noteService.editComment(1, testComment, Comment(false, "update first comment", 1))
+    println("Обновили коммент  " + noteService.elements)
+
+    noteService.deleteComment(1, testComment2)
+    println("Удалили коммент к первой заметке и выводим список комментов к заметке 1:  " + noteService.getComments(1))
+
 }
