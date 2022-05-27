@@ -59,33 +59,6 @@ class WallServiceTest {
         assertFalse(result)
     }
 
-  /*  @Test
-    fun createCommentIdExists() {
-        //Arrange
-        val wallService = WallService()
-        val videoAttachment = VideoAttachment("video")
-        val postTest = Post(
-            id = 1L,
-            text = "My post for test",
-            attachment = videoAttachment
-        )
-     //   val postAfterAddId = wallService.add(
-    //        post = postTest
-    //    )
-        val commentTest = Comment(
-            id = 1,
-         //   postId = postAfterAddId.id,
-            text = "My comment for test",
-        )
-
-        //Act
-        val result = wallService.createComment(
-            comment = commentTest
-        )
-        //Assert
-        assertEquals("My comment for test", result.text)
-    }
-*/
   @Test(expected = PostNotFoundException::class)
     fun shouldThrow() {
         //Arrange
